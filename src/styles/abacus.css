@@ -1004,58 +1004,143 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     :root {
-        --bead-width: 36px;
-        --bead-height: 24px;
+        /* Drastically reduced sizes for mobile */
+        --bead-width: 42px;
+        --bead-height: 28px;
+        --rod-thickness: 4px;
         --frame-padding: 10px;
+        --beam-height: 18px;
     }
 
-    .display-value {
-        font-size: 2.5rem;
+    .app-container {
+        gap: 10px;
+        /* Tighter layout */
+        padding: 5px;
+        width: 100%;
+        min-height: 100vh;
+        justify-content: center;
+        /* Center content vertically */
+        box-sizing: border-box;
+        overflow-x: hidden;
+        /* Prevent horizontal scroll */
+        /* overflow-y: hidden;  Let vertical scroll if really needed, but try to fit */
+    }
+
+    .header-text {
+        font-size: 1.5rem;
+        /* Much smaller title */
+        margin-bottom: 10px;
+        margin-top: 5px;
+        line-height: 1.2;
+    }
+
+    /* Adjust frame padding for tighter fit */
+    .abacus-frame-outer {
+        padding: 10px;
+        border-width: 3px;
+        max-width: 100%;
+        box-sizing: border-box;
+        /* Remove transform scale, handle via sizes */
+    }
+
+    .abacus-frame-inner {
+        padding: 5px 2px;
+        justify-content: center;
+    }
+
+    .values-row {
+        margin-bottom: 2px;
     }
 
     .rod-value {
         font-size: 1.2rem;
+        /* Smaller numbers */
+        width: var(--bead-width);
     }
 
-    /* On very small screens, allow horizontal scroll if needed */
-    .abacus-frame-outer {
-        max-width: 95vw;
-        overflow-x: auto;
-        padding: 15px;
-    }
-
-    .reset-btn {
-        padding: 8px 24px;
-        font-size: 1.2rem;
-        margin-top: 20px;
+    .deck.heaven {
+        height: 60px;
     }
 
     .deck.earth {
         height: 140px;
     }
 
-    .deck.heaven {
-        height: 60px;
+    .reset-btn {
+        margin-top: 15px;
+        padding: 8px 25px;
+        font-size: 1rem;
     }
 }
 
-@media (max-width: 480px) {
+/* --- MOBILE LANDSCAPE OPTIMIZATION --- */
+/* Target devices with small height (typical mobile landscape) */
+@media screen and (max-height: 600px) and (orientation: landscape) {
     :root {
-        --bead-width: 28px;
-        --bead-height: 18px;
+        --bead-width: 40px;
+        --bead-height: 22px;
+        /* Flatter beads */
+        --rod-thickness: 4px;
+        --frame-padding: 8px;
+        --beam-height: 16px;
+    }
+
+    .app-container {
+        padding: 5px;
+        gap: 5px;
+        min-height: 100vh;
+        height: auto;
+        overflow-y: auto;
+        /* Allow scroll if absolutely needed, but try to fit */
+    }
+
+    .header-text {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+        margin-top: 2px;
+        display: inline-block;
+        /* Save vertical space */
+    }
+
+    .values-row {
+        margin-bottom: 2px;
     }
 
     .rod-value {
-        font-size: 1rem;
+        font-size: 1.2rem;
+        width: var(--bead-width);
     }
 
-    .deck.earth {
-        height: 110px;
+    .abacus-frame-outer {
+        padding: 8px;
+        border-width: 3px;
+    }
+
+    .abacus-frame-inner {
+        padding: 2px;
     }
 
     .deck.heaven {
         height: 50px;
+        /* Very compact */
+    }
+
+    .deck.earth {
+        height: 120px;
+        /* Very compact */
+    }
+
+    .bead {
+        margin: 1px 0;
+        /* Minimal gap */
+    }
+
+    /* Move reset button to overlap or sit compactly */
+    .reset-btn {
+        margin-top: 5px;
+        padding: 5px 20px;
+        font-size: 0.9rem;
     }
 }
