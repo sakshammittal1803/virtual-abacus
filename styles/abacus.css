@@ -1,0 +1,1061 @@
+:root {
+    /* Ultra-Realistic Golden Theme Palette */
+    --wood-primary: #4a2e1d;
+    --wood-dark: #2a1810;
+    --wood-light: #70462e;
+    --wood-grain: #1a0e08;
+
+    /* Gold: User provided gradient */
+    --gold-primary: #E0AA3E;
+    --gold-secondary: #B88A44;
+    --gold-highlight: #F9F295;
+    --gold-shadow: #B88A44;
+
+    --rod-metal: #dcdcdc;
+    --rod-dark: #696969;
+
+    --bg-table: #0f0805;
+
+    /* Dimensions */
+    --bead-width: 64px;
+    --bead-height: 42px;
+    --rod-thickness: 6px;
+    --frame-padding: 15px;
+    --beam-height: 24px;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--bg-table);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('../assets/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.header-text {
+    font-size: 3rem;
+    font-weight: 700;
+    font-family: 'Times New Roman', serif;
+    color: var(--gold-highlight);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    margin-bottom: 20px;
+    z-index: 100;
+    position: relative;
+}
+
+
+
+.display-value {
+    font-size: 5rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: var(--gold-primary);
+    text-shadow:
+        0 0 5px var(--gold-shadow),
+        0 0 10px var(--gold-shadow),
+        0 0 20px black;
+    letter-spacing: 0.25em;
+    background: linear-gradient(to bottom, #fff, var(--gold-primary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* FRAME */
+.abacus-frame-outer {
+    background: var(--wood-primary);
+    padding: 24px;
+    border-radius: 6px;
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.95),
+        inset 0 0 50px var(--wood-grain);
+    border: 5px solid var(--wood-dark);
+    position: relative;
+}
+
+/* Wood Grain Texture Overlay using repeated gradient */
+.abacus-frame-outer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 10px,
+            rgba(0, 0, 0, 0.05) 10px,
+            rgba(0, 0, 0, 0.05) 20px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.abacus-frame-inner {
+    display: flex;
+    background: #0d0d0d;
+    padding: 8px 12px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 1);
+    position: relative;
+    z-index: 2;
+}
+
+/* METAL CORNERS */
+.corner {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #e0e0e0, #888, #444);
+    border: 1px solid #333;
+    z-index: 10;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+}
+
+.top-left {
+    top: -6px;
+    left: -6px;
+    border-radius: 2px 2px 30px 2px;
+}
+
+.top-right {
+    top: -6px;
+    right: -6px;
+    border-radius: 2px 2px 2px 30px;
+}
+
+.bottom-left {
+    bottom: -6px;
+    left: -6px;
+    border-radius: 2px 30px 2px 2px;
+}
+
+.bottom-right {
+    bottom: -6px;
+    right: -6px;
+    border-radius: 30px 2px 2px 2px;
+}
+
+/* Rivets */
+.corner::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle at 30% 30%, #fff, #555);
+    border-radius: 50%;
+    box-shadow: 1px 1px 2px black;
+}
+
+.top-left::after {
+    top: 8px;
+    left: 8px;
+}
+
+.top-right::after {
+    top: 8px;
+    right: 8px;
+}
+
+.bottom-left::after {
+    bottom: 8px;
+    left: 8px;
+}
+
+.bottom-right::after {
+    bottom: 8px;
+    right: 8px;
+}
+
+
+/* COLUMN */
+.column {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: var(--bead-width);
+    margin: 0 1px;
+    z-index: 1;
+}
+
+/* ROD */
+.rod {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--rod-thickness);
+    background: linear-gradient(90deg, var(--rod-dark), #fff, var(--rod-dark));
+    z-index: -1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* BEAM (Separator) */
+.beam {
+    height: var(--beam-height);
+    background: linear-gradient(to bottom, #3e2616, #8a5a38, #3e2616);
+    z-index: 5;
+    margin: 6px -4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.6);
+    border-radius: 2px;
+}
+
+/* DECKS */
+.deck {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.deck.heaven {
+    height: 90px;
+    justify-content: flex-start;
+}
+
+.deck.heaven .bead.active {
+    margin-top: auto;
+}
+
+
+.deck.earth {
+    height: 220px;
+    justify-content: flex-start;
+}
+
+.gap-above {
+    margin-top: auto !important;
+}
+
+/* BEAD */
+.bead {
+    width: var(--bead-width);
+    height: var(--bead-height);
+    position: relative;
+    cursor: pointer;
+    z-index: 10;
+    margin: 1px 0;
+    transition: margin 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+    /* Snappy movement */
+
+    /* Complex shape: Diamond-ish Oval */
+    border-radius: 50% / 15%;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+
+    /* COLOR: High def gold */
+    background: linear-gradient(to right,
+            var(--gold-shadow),
+            var(--gold-primary) 20%,
+            var(--gold-highlight) 50%,
+            var(--gold-primary) 80%,
+            var(--gold-shadow));
+
+    box-shadow:
+        0 5px 5px rgba(0, 0, 0, 0.6),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.5),
+        inset 0 2px 2px rgba(255, 255, 255, 0.5);
+}
+
+
+.bead:hover {
+    filter: brightness(1.2) contrast(1.1);
+}
+
+.reset-btn {
+    margin-top: 40px;
+    padding: 12px 40px;
+    background: linear-gradient(to bottom, #5c3a21, #3e2616);
+    border: 2px solid var(--gold-secondary);
+    color: var(--gold-highlight);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    transition: all 0.1s;
+    background: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 10px,
+            rgba(0, 0, 0, 0.05) 10px,
+            rgba(0, 0, 0, 0.05) 20px);
+    z-index: 1;
+}
+
+
+.abacus-frame-inner {
+    display: flex;
+    background: #0d0d0d;
+    padding: 8px 12px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 1);
+    position: relative;
+    z-index: 2;
+}
+
+/* METAL CORNERS */
+.corner {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #e0e0e0, #888, #444);
+    border: 1px solid #333;
+    z-index: 10;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+}
+
+.top-left {
+    top: -6px;
+    left: -6px;
+    border-radius: 2px 2px 30px 2px;
+}
+
+.top-right {
+    top: -6px;
+    right: -6px;
+    border-radius: 2px 2px 2px 30px;
+}
+
+.bottom-left {
+    bottom: -6px;
+    left: -6px;
+    border-radius: 2px 30px 2px 2px;
+}
+
+.bottom-right {
+    bottom: -6px;
+    right: -6px;
+    border-radius: 30px 2px 2px 2px;
+}
+
+/* Rivets */
+.corner::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle at 30% 30%, #fff, #555);
+    border-radius: 50%;
+    box-shadow: 1px 1px 2px black;
+}
+
+.top-left::after {
+    top: 8px;
+    left: 8px;
+}
+
+.top-right::after {
+    top: 8px;
+    right: 8px;
+}
+
+.bottom-left::after {
+    bottom: 8px;
+    left: 8px;
+}
+
+.bottom-right::after {
+    bottom: 8px;
+    right: 8px;
+}
+
+
+/* COLUMN */
+.column {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: var(--bead-width);
+    margin: 0 1px;
+    z-index: 1;
+}
+
+/* ROD */
+.rod {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--rod-thickness);
+    background: linear-gradient(90deg, var(--rod-dark), #fff, var(--rod-dark));
+    z-index: -1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* BEAM (Separator) */
+/* BEAM (Separator) */
+.beam {
+    height: var(--beam-height);
+    background: linear-gradient(to bottom, #3e2616, #8a5a38, #3e2616);
+    z-index: 5;
+    margin: 6px -4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.6);
+    border-radius: 2px;
+    position: relative;
+    /* Removed flex to avoid layout issues, using absolute for dot */
+}
+
+.unit-dot {
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 1);
+    z-index: 100;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+
+
+/* DECKS */
+.deck {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.deck.heaven {
+    height: 90px;
+    justify-content: flex-start;
+}
+
+.deck.heaven .bead.active {
+    margin-top: auto;
+}
+
+
+.deck.earth {
+    height: 220px;
+    justify-content: flex-start;
+}
+
+.gap-above {
+    margin-top: auto !important;
+}
+
+/* BEAD */
+.bead {
+    width: var(--bead-width);
+    height: var(--bead-height);
+    position: relative;
+    cursor: pointer;
+    z-index: 10;
+    margin: 1px 0;
+    transition: margin 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+    /* Snappy movement */
+
+    /* Complex shape: Diamond-ish Oval */
+    border-radius: 50% / 15%;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+
+    /* COLOR: High def gold */
+    background: linear-gradient(to right,
+            var(--gold-shadow),
+            var(--gold-primary) 20%,
+            var(--gold-highlight) 50%,
+            var(--gold-primary) 80%,
+            var(--gold-shadow));
+
+    box-shadow:
+        0 5px 5px rgba(0, 0, 0, 0.6),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.5),
+        inset 0 2px 2px rgba(255, 255, 255, 0.5);
+}
+
+
+.bead:hover {
+    filter: brightness(1.2) contrast(1.1);
+}
+
+.reset-btn {
+    margin-top: 40px;
+    padding: 12px 40px;
+    background: linear-gradient(to bottom, #5c3a21, #3e2616);
+    border: 2px solid var(--gold-secondary);
+    color: var(--gold-highlight);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    transition: all 0.1s;
+}
+
+.reset-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* ... new additions ... */
+
+.column-value {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: var(--gold-primary);
+    text-shadow: 0 0 5px var(--gold-shadow);
+    text-align: center;
+    margin-bottom: 10px;
+    z-index: 20;
+    /* Above everything */
+}
+
+.corner {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #e0e0e0, #888, #444);
+    border: 1px solid #333;
+    z-index: 10;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+}
+
+.top-left {
+    top: -6px;
+    left: -6px;
+    border-radius: 2px 2px 30px 2px;
+}
+
+.top-right {
+    top: -6px;
+    right: -6px;
+    border-radius: 2px 2px 2px 30px;
+}
+
+.bottom-left {
+    bottom: -6px;
+    left: -6px;
+    border-radius: 2px 30px 2px 2px;
+}
+
+.bottom-right {
+    bottom: -6px;
+    right: -6px;
+    border-radius: 30px 2px 2px 2px;
+}
+
+/* Rivets */
+.corner::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle at 30% 30%, #fff, #555);
+    border-radius: 50%;
+    box-shadow: 1px 1px 2px black;
+}
+
+.top-left::after {
+    top: 8px;
+    left: 8px;
+}
+
+.top-right::after {
+    top: 8px;
+    right: 8px;
+}
+
+.bottom-left::after {
+    bottom: 8px;
+    left: 8px;
+}
+
+.bottom-right::after {
+    bottom: 8px;
+    right: 8px;
+}
+
+
+/* COLUMN */
+.column {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: var(--bead-width);
+    margin: 0 1px;
+    z-index: 1;
+}
+
+/* ROD */
+.rod {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--rod-thickness);
+    background: linear-gradient(90deg, var(--rod-dark), #fff, var(--rod-dark));
+    z-index: -1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* BEAM (Separator) */
+.beam {
+    height: var(--beam-height);
+    background: linear-gradient(to bottom, #3e2616, #8a5a38, #3e2616);
+    z-index: 5;
+    margin: 6px -4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.6);
+    border-radius: 2px;
+}
+
+/* DECKS */
+.deck {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.deck.heaven {
+    height: 90px;
+    justify-content: flex-start;
+}
+
+.deck.heaven .bead.active {
+    margin-top: auto;
+}
+
+
+.deck.earth {
+    height: 220px;
+    justify-content: flex-start;
+}
+
+.gap-above {
+    margin-top: auto !important;
+}
+
+/* BEAD */
+.bead {
+    /* BASIC SHAPE & PHYSICS */
+    width: var(--bead-width);
+    height: var(--bead-height);
+    position: relative;
+    cursor: pointer;
+    z-index: 10;
+    margin: 1px 0;
+    transition: margin 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+    border-radius: 50% / 15%;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+
+    box-shadow:
+        0 5px 5px rgba(0, 0, 0, 0.6),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.5),
+        inset 0 2px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* BEAD COLORING LOGIC BY DIRECTION */
+/* UP Color: #996515 (Dark/Bronze) */
+/* DOWN Color: #FFCC00 (Bright Gold) */
+
+/* Earth Beads (Bottom Deck) */
+/* Default (Down/Inactive): Dark (#996515) */
+.bead.earth {
+    background: linear-gradient(to right,
+            #d4a04b 0%,
+            #996515 35%,
+            #996515 65%,
+            #6b460e 100%);
+}
+
+/* Active (Up): Light (#FFCC00) */
+.bead.earth.active {
+    background: linear-gradient(to right,
+            #ffcc00 0%,
+            #e6b800 35%,
+            #e6b800 65%,
+            #b38f00 100%);
+}
+
+/* Heaven Beads (Top Deck) */
+/* Default (Up/Inactive): Dark (#996515) */
+.bead.heaven {
+    background: linear-gradient(to right,
+            #d4a04b 0%,
+            #996515 35%,
+            #996515 65%,
+            #6b460e 100%);
+}
+
+/* Active (Down): Light (#FFCC00) */
+.bead.heaven.active {
+    background: linear-gradient(to right,
+            #ffcc00 0%,
+            #e6b800 35%,
+            #e6b800 65%,
+            #b38f00 100%);
+}
+
+
+.bead:hover {
+    filter: brightness(1.2) contrast(1.1);
+}
+
+.reset-btn {
+    margin-top: 40px;
+    padding: 12px 40px;
+    background: linear-gradient(to bottom, #5c3a21, #3e2616);
+    border: 2px solid var(--gold-secondary);
+    color: var(--gold-highlight);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    transition: all 0.1s;
+}
+
+.reset-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* ... new additions ... */
+
+.column-value {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: var(--gold-primary);
+    text-shadow: 0 0 5px var(--gold-shadow);
+    text-align: center;
+    margin-bottom: 10px;
+    z-index: 20;
+    /* Above everything */
+}
+
+/* Adjust layout to accommodate values */
+.abacus-frame-inner {
+    padding-top: 10px;
+    align-items: flex-end;
+}
+
+.values-row {
+    display: flex;
+    justify-content: center;
+    /* Center to match frame */
+    /* Replicate frame-inner's padding/gap logic implicitly by using same width items */
+    padding: 0 12px;
+    /* Match abacus-frame-inner padding (horizontal) */
+    margin-bottom: 5px;
+    /* Space between numbers and frame */
+}
+
+.rod-value {
+    width: var(--bead-width);
+    margin: 0 1px;
+    /* Match .column margin */
+
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: var(--gold-primary);
+    text-shadow:
+        0 0 5px var(--gold-shadow),
+        0 0 10px black;
+    text-align: center;
+}
+
+/* Remove old column-value style if exists */
+.column {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: var(--bead-width);
+    margin: 0 1px;
+    z-index: 1;
+}
+
+/* ROD */
+.rod {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--rod-thickness);
+    background: linear-gradient(90deg, var(--rod-dark), #fff, var(--rod-dark));
+    z-index: -1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* BEAM (Separator) */
+.beam {
+    height: var(--beam-height);
+    background: linear-gradient(to bottom, #3e2616, #8a5a38, #3e2616);
+    z-index: 5;
+    margin: 6px -4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.6);
+    border-radius: 2px;
+}
+
+/* DECKS */
+.deck {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.deck.heaven {
+    height: 90px;
+    justify-content: flex-start;
+}
+
+.deck.heaven .bead.active {
+    margin-top: auto;
+}
+
+
+.deck.earth {
+    height: 220px;
+    justify-content: flex-start;
+}
+
+.gap-above {
+    margin-top: auto !important;
+}
+
+/* BEAD */
+.bead {
+    /* BASIC SHAPE & PHYSICS */
+    width: var(--bead-width);
+    height: var(--bead-height);
+    position: relative;
+    cursor: pointer;
+    z-index: 10;
+    margin: 1px 0;
+    transition: margin 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+    border-radius: 50% / 15%;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+
+    box-shadow:
+        0 5px 5px rgba(0, 0, 0, 0.6),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.5),
+        inset 0 2px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* BEAD COLORING LOGIC BY DIRECTION */
+/* UP Color: #996515 (Dark/Bronze) */
+/* DOWN Color: #FFCC00 (Bright Gold) */
+
+/* Earth Beads (Bottom Deck) */
+/* Default (Down/Inactive): Dark (#996515) */
+.bead.earth {
+    background: linear-gradient(to right,
+            #d4a04b 0%,
+            #996515 35%,
+            #996515 65%,
+            #6b460e 100%);
+}
+
+/* Active (Up): Light (#FFCC00) */
+.bead.earth.active {
+    background: linear-gradient(to right,
+            #ffcc00 0%,
+            #e6b800 35%,
+            #e6b800 65%,
+            #b38f00 100%);
+}
+
+/* Heaven Beads (Top Deck) */
+/* Default (Up/Inactive): Dark (#996515) */
+.bead.heaven {
+    background: linear-gradient(to right,
+            #d4a04b 0%,
+            #996515 35%,
+            #996515 65%,
+            #6b460e 100%);
+}
+
+/* Active (Down): Light (#FFCC00) */
+.bead.heaven.active {
+    background: linear-gradient(to right,
+            #ffcc00 0%,
+            #e6b800 35%,
+            #e6b800 65%,
+            #b38f00 100%);
+}
+
+
+.bead:hover {
+    filter: brightness(1.2) contrast(1.1);
+}
+
+.reset-btn {
+    margin-top: 40px;
+    padding: 12px 40px;
+    background: linear-gradient(to bottom, #5c3a21, #3e2616);
+    border: 2px solid var(--gold-secondary);
+    color: var(--gold-highlight);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    transition: all 0.1s;
+}
+
+.reset-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* ... new additions ... */
+
+.column-value {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: var(--gold-primary);
+    text-shadow: 0 0 5px var(--gold-shadow);
+    text-align: center;
+    margin-bottom: 10px;
+    z-index: 20;
+    /* Above everything */
+}
+
+/* Adjust layout to accommodate values */
+.abacus-frame-inner {
+    padding-top: 10px;
+    align-items: flex-end;
+}
+
+.values-row {
+    display: flex;
+    justify-content: center;
+    /* Center to match frame */
+    /* Replicate frame-inner's padding/gap logic implicitly by using same width items */
+    padding: 0 12px;
+    /* Match abacus-frame-inner padding (horizontal) */
+    margin-bottom: 5px;
+    /* Space between numbers and frame */
+}
+
+.rod-value {
+    width: var(--bead-width);
+    margin: 0 1px;
+    /* Match .column margin */
+
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: var(--gold-primary);
+    text-shadow:
+        0 0 5px var(--gold-shadow),
+        0 0 10px black;
+    text-align: center;
+}
+
+/* Remove old column-value style if exists */
+.column-value {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    :root {
+        --bead-width: 50px;
+        --bead-height: 34px;
+        --frame-padding: 15px;
+    }
+
+    .display-value {
+        font-size: 3.5rem;
+    }
+
+    .rod-value {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --bead-width: 36px;
+        --bead-height: 24px;
+        --frame-padding: 10px;
+    }
+
+    .display-value {
+        font-size: 2.5rem;
+    }
+
+    .rod-value {
+        font-size: 1.2rem;
+    }
+
+    /* On very small screens, allow horizontal scroll if needed */
+    .abacus-frame-outer {
+        max-width: 95vw;
+        overflow-x: auto;
+        padding: 15px;
+    }
+
+    .reset-btn {
+        padding: 8px 24px;
+        font-size: 1.2rem;
+        margin-top: 20px;
+    }
+
+    .deck.earth {
+        height: 140px;
+    }
+
+    .deck.heaven {
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --bead-width: 28px;
+        --bead-height: 18px;
+    }
+
+    .rod-value {
+        font-size: 1rem;
+    }
+
+    .deck.earth {
+        height: 110px;
+    }
+
+    .deck.heaven {
+        height: 50px;
+    }
+}
